@@ -483,7 +483,173 @@
             right: 0;
         }
 
-        /* Footer */
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: #181818;
+            border-radius: 8px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #2f2f2f;
+            border: none;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: #e50914;
+            transform: scale(1.1);
+        }
+
+        .modal-header {
+            padding: 3rem;
+            background: linear-gradient(135deg, #e50914, #831010);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-company {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-date {
+            font-size: 1.1rem;
+            opacity: 0.7;
+        }
+
+        .modal-body {
+            padding: 3rem;
+        }
+
+        .modal-section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e50914;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #2f2f2f;
+            padding-bottom: 0.5rem;
+        }
+
+        .modal-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            color: #e5e5e5;
+        }
+
+        .modal-list li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #e50914;
+            font-size: 0.8rem;
+        }
+
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .modal-tag {
+            background: rgba(229, 9, 20, 0.2);
+            border: 1px solid rgba(229, 9, 20, 0.4);
+            color: #e50914;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        /* Scrollbar Styling for Modal */
+        .modal-content::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: #2f2f2f;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #e50914;
+            border-radius: 5px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: #f40612;
+        }
         footer {
             padding: 3rem 60px;
             background: #000;
@@ -665,7 +831,7 @@
             <div class="row-container">
                 <button class="scroll-btn left" onclick="scrollRow('exp', -1)">‹</button>
                 <div class="cards-container" id="exp-container">
-                    <div class="experience-card">
+                    <div class="experience-card" onclick="openModal('meta')">
                         <div class="experience-card-image">🌐</div>
                         <div class="experience-card-content">
                             <div class="experience-card-title">Software Engineer 2</div>
@@ -680,7 +846,7 @@
                         </div>
                     </div>
 
-                    <div class="experience-card">
+                    <div class="experience-card" onclick="openModal('posh')">
                         <div class="experience-card-image">💡</div>
                         <div class="experience-card-content">
                             <div class="experience-card-title">Associate Software Engineer</div>
@@ -695,7 +861,7 @@
                         </div>
                     </div>
 
-                    <div class="experience-card">
+                    <div class="experience-card" onclick="openModal('freelance')">
                         <div class="experience-card-image">🎨</div>
                         <div class="experience-card-content">
                             <div class="experience-card-title">Web Developer</div>
@@ -907,7 +1073,126 @@
         <p>© 2024 Ritesh Muralidhar. All rights reserved.</p>
     </footer>
 
+    <!-- Experience Modal -->
+    <div class="modal" id="experienceModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-header" id="modalHeader">
+                <div class="modal-icon" id="modalIcon"></div>
+                <div class="modal-title" id="modalTitle"></div>
+                <div class="modal-company" id="modalCompany"></div>
+                <div class="modal-date" id="modalDate"></div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section-title">Key Responsibilities & Achievements</div>
+                <ul class="modal-list" id="modalList"></ul>
+                <div class="modal-tags" id="modalTags"></div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Experience Data from Resume
+        const experienceData = {
+            meta: {
+                icon: '🌐',
+                title: 'Software Engineer 2',
+                company: 'Meta',
+                date: 'Feb 2022 - Present',
+                points: [
+                    'Architected and operated high-scale microservices processing 1.5B+ daily events using Apache Spark, Kafka, and Spring Boot, achieving a 25% latency reduction in ranking pipelines.',
+                    'Led incident reviews and on-call operations, identifying systemic bottlenecks and deploying automated alerting, reducing delivery gaps from 14% to 3% and improving overall pipeline reliability.',
+                    'Introduced granular caching keys and multi-tier caching strategies, driving a 150% cache-hit uplift and lowering query throughput cost across microservices.',
+                    'Designed and scaled GraphQL and RESTful APIs serving 10K+ RPS across ranking, feature-extraction, and model-training microservices, improving cross-service throughput 35% and reducing P95 tail latency 20% under production load.',
+                    'Implemented and tuned adaptive CDN-aware edge caching and delivery mechanisms, cutting inter-region tail latency ~40% and ensuring global SLA compliance for ranking responses.',
+                    'Collaborated with ML and product teams to translate ranking logic into scalable data models, improving offline-to-online consistency 35% and accelerating feature experimentation velocity.',
+                    'Directed large-scale A/B experimentation and signal validation pipelines, driving a 20% uplift in mapping coverage and a 35% boost in retrieval precision through systematic feature tuning and iterative model improvements.'
+                ],
+                tags: ['Java', 'Apache Spark', 'Kafka', 'Spring Boot', 'GraphQL', 'REST APIs', 'Distributed Systems', 'Microservices', 'A/B Testing']
+            },
+            posh: {
+                icon: '💡',
+                title: 'Associate Software Engineer',
+                company: 'Posh Advertisers Pvt Ltd.',
+                date: 'Jul 2020 - Dec 2021',
+                points: [
+                    'Developed and maintained responsive web applications using HTML, CSS, and JavaScript, resulting in a 20% improvement in user experience and engagement.',
+                    'Implemented front-end functionality and user interfaces with React JS, leading to a 15% increase in user interactivity and satisfaction.',
+                    'Utilized Java and RESTful APIs for back-end development, achieving a 25% enhancement in data processing efficiency and server-side operations.',
+                    'Designed and optimized SQL and NoSQL databases, demonstrating full-stack expertise in ensuring data integrity, reliability, and high-performance queries.',
+                    'Collaborated with cross-functional teams, leading to 10% reduction in issue resolution time and 20% faster implementation of innovative solutions.',
+                    'Working with clients to understand their requirements and providing technical solutions to meet their needs.'
+                ],
+                tags: ['React', 'JavaScript', 'Java', 'REST APIs', 'SQL', 'NoSQL', 'HTML/CSS', 'Full-Stack']
+            },
+            freelance: {
+                icon: '🎨',
+                title: 'Web Developer',
+                company: 'Freelance',
+                date: 'Jan 2019 - Dec 2021',
+                points: [
+                    'Designed and delivered user-friendly, optimized websites using agile methodologies, which resulted in steady growth of customer sales by 50%.',
+                    'Working with clients to understand their requirements and providing technical solutions to meet their needs.',
+                    'Creating wireframes, prototypes and final designs for websites and web applications.',
+                    'Ensuring that websites are optimized for search engines (SEO) and meet accessibility standards.',
+                    'Maintained detailed project documentation, including code and version control and test cases, aligning with agile and testing protocols.',
+                    'Delivered projects on time while ensuring high quality and client satisfaction.'
+                ],
+                tags: ['Web Development', 'UI/UX Design', 'SEO', 'Agile', 'Client Management', 'Wireframing', 'Prototyping']
+            }
+        };
+
+        // Modal Functions
+        function openModal(experienceKey) {
+            const data = experienceData[experienceKey];
+            const modal = document.getElementById('experienceModal');
+            
+            document.getElementById('modalIcon').textContent = data.icon;
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalCompany').textContent = data.company;
+            document.getElementById('modalDate').textContent = data.date;
+            
+            const listElement = document.getElementById('modalList');
+            listElement.innerHTML = '';
+            data.points.forEach(point => {
+                const li = document.createElement('li');
+                li.textContent = point;
+                listElement.appendChild(li);
+            });
+            
+            const tagsElement = document.getElementById('modalTags');
+            tagsElement.innerHTML = '';
+            data.tags.forEach(tag => {
+                const span = document.createElement('span');
+                span.className = 'modal-tag';
+                span.textContent = tag;
+                tagsElement.appendChild(span);
+            });
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('experienceModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on outside click
+        document.getElementById('experienceModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
         // Loading Screen - Netflix Style
         window.addEventListener('load', () => {
             setTimeout(() => {
