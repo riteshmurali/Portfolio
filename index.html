@@ -834,9 +834,9 @@
                     <div class="experience-card" onclick="openModal('meta')">
                         <div class="experience-card-image">🌐</div>
                         <div class="experience-card-content">
-                            <div class="experience-card-title">Software Engineer 2</div>
+                            <div class="experience-card-title">Software Engineer</div>
                             <div class="experience-company">Meta</div>
-                            <div class="experience-date">Feb 2022 - Present</div>
+                            <div class="experience-date">Feb 2025 - Present</div>
                             <div class="experience-highlights">
                                 <span class="highlight-tag">1.5B+ Events/Day</span>
                                 <span class="highlight-tag">25% Latency ↓</span>
@@ -846,17 +846,32 @@
                         </div>
                     </div>
 
+                    <div class="experience-card" onclick="openModal('uta')">
+                        <div class="experience-card-image">🔬</div>
+                        <div class="experience-card-content">
+                            <div class="experience-card-title">Research Software Engineer</div>
+                            <div class="experience-company">UT Arlington</div>
+                            <div class="experience-date">Feb 2024 - Feb 2025</div>
+                            <div class="experience-highlights">
+                                <span class="highlight-tag">10M+ Events/Day</span>
+                                <span class="highlight-tag">Kafka Pipelines</span>
+                                <span class="highlight-tag">30% Latency ↓</span>
+                                <span class="highlight-tag">Geospatial ML</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="experience-card" onclick="openModal('posh')">
                         <div class="experience-card-image">💡</div>
                         <div class="experience-card-content">
                             <div class="experience-card-title">Associate Software Engineer</div>
-                            <div class="experience-company">Posh Advertisers</div>
+                            <div class="experience-company">Posh Advertising</div>
                             <div class="experience-date">Jul 2020 - Dec 2021</div>
                             <div class="experience-highlights">
-                                <span class="highlight-tag">Full-Stack</span>
-                                <span class="highlight-tag">React & Java</span>
-                                <span class="highlight-tag">25% Efficiency ↑</span>
-                                <span class="highlight-tag">SQL/NoSQL</span>
+                                <span class="highlight-tag">GraphQL</span>
+                                <span class="highlight-tag">25% Throughput ↑</span>
+                                <span class="highlight-tag">Azure K8s</span>
+                                <span class="highlight-tag">Databricks</span>
                             </div>
                         </div>
                     </div>
@@ -868,10 +883,10 @@
                             <div class="experience-company">Freelance</div>
                             <div class="experience-date">Jan 2019 - Dec 2021</div>
                             <div class="experience-highlights">
+                                <span class="highlight-tag">100K+ Requests/Day</span>
                                 <span class="highlight-tag">50% Sales ↑</span>
-                                <span class="highlight-tag">Agile</span>
-                                <span class="highlight-tag">SEO</span>
-                                <span class="highlight-tag">Responsive</span>
+                                <span class="highlight-tag">Docker/K8s</span>
+                                <span class="highlight-tag">99.9% Uptime</span>
                             </div>
                         </div>
                     </div>
@@ -1096,49 +1111,54 @@
         const experienceData = {
             meta: {
                 icon: '🌐',
-                title: 'Software Engineer 2',
+                title: 'Software Engineer',
                 company: 'Meta',
-                date: 'Feb 2022 - Present',
+                date: 'Feb 2025 - Present | Menlo Park, CA',
                 points: [
                     'Architected and operated high-scale microservices processing 1.5B+ daily events using Apache Spark, Kafka, and Spring Boot, achieving a 25% latency reduction in ranking pipelines.',
-                    'Led incident reviews and on-call operations, identifying systemic bottlenecks and deploying automated alerting, reducing delivery gaps from 14% to 3% and improving overall pipeline reliability.',
-                    'Introduced granular caching keys and multi-tier caching strategies, driving a 150% cache-hit uplift and lowering query throughput cost across microservices.',
-                    'Designed and scaled GraphQL and RESTful APIs serving 10K+ RPS across ranking, feature-extraction, and model-training microservices, improving cross-service throughput 35% and reducing P95 tail latency 20% under production load.',
-                    'Implemented and tuned adaptive CDN-aware edge caching and delivery mechanisms, cutting inter-region tail latency ~40% and ensuring global SLA compliance for ranking responses.',
-                    'Collaborated with ML and product teams to translate ranking logic into scalable data models, improving offline-to-online consistency 35% and accelerating feature experimentation velocity.',
-                    'Directed large-scale A/B experimentation and signal validation pipelines, driving a 20% uplift in mapping coverage and a 35% boost in retrieval precision through systematic feature tuning and iterative model improvements.'
+                    'Drove the design and rollout of granular cache-key strategies and multi-tier caching across microservices, increasing cache hit rates by 150% and reducing query throughput costs.',
+                    'Partnered with 8–10 ML, product, and infra engineers to design and scale GraphQL and REST APIs serving 10K+ RPS, improving throughput by 35% and reducing P95 latency by 20%.',
+                    'Implemented and tuned adaptive CDN-aware edge caching and delivery, cutting inter-region tail latency ~40% and ensuring global SLA compliance for ranking responses.',
+                    'Coordinated on-call operations and post-incident reviews with SREs and backend engineers across 3 service teams, mentoring responders and reducing delivery gaps from 14% to 3%.',
+                    'Led cross-functional A/B experimentation and signal-validation pipelines, translating ranking logic into scalable data models that improved offline-to-online consistency by 35%, mapping coverage by 20%, and retrieval precision by 35%.'
                 ],
-                tags: ['Java', 'Apache Spark', 'Kafka', 'Spring Boot', 'GraphQL', 'REST APIs', 'Distributed Systems', 'Microservices', 'A/B Testing']
+                tags: ['Java', 'Apache Spark', 'Kafka', 'Spring Boot', 'GraphQL', 'REST APIs', 'Distributed Systems', 'Microservices', 'A/B Testing', 'CDN', 'SRE']
+            },
+            uta: {
+                icon: '🔬',
+                title: 'Research Software Engineer',
+                company: 'University of Texas at Arlington',
+                date: 'Feb 2024 - Feb 2025 | Arlington, TX',
+                points: [
+                    'Built and optimized streaming data pipelines for a predictive geohashing system, processing 10M+ geospatial events/day using Kafka-based ingestion and real-time transformations.',
+                    'Implemented scalable aggregation and feature-generation workflows, reducing end-to-end processing latency by ~30% and enabling faster model inference for downstream geospatial predictions.'
+                ],
+                tags: ['Kafka', 'Data Pipelines', 'Geospatial', 'Real-time Processing', 'Machine Learning', 'Python']
             },
             posh: {
                 icon: '💡',
                 title: 'Associate Software Engineer',
-                company: 'Posh Advertisers Pvt Ltd.',
-                date: 'Jul 2020 - Dec 2021',
+                company: 'Posh Advertising Pvt Ltd.',
+                date: 'Jul 2020 - Dec 2021 | Bengaluru, India',
                 points: [
-                    'Developed and maintained responsive web applications using HTML, CSS, and JavaScript, resulting in a 20% improvement in user experience and engagement.',
-                    'Implemented front-end functionality and user interfaces with React JS, leading to a 15% increase in user interactivity and satisfaction.',
-                    'Utilized Java and RESTful APIs for back-end development, achieving a 25% enhancement in data processing efficiency and server-side operations.',
-                    'Designed and optimized SQL and NoSQL databases, demonstrating full-stack expertise in ensuring data integrity, reliability, and high-performance queries.',
-                    'Collaborated with cross-functional teams, leading to 10% reduction in issue resolution time and 20% faster implementation of innovative solutions.',
-                    'Working with clients to understand their requirements and providing technical solutions to meet their needs.'
+                    'Engineered and secured enterprise-grade applications using Spring Boot and GraphQL, improving throughput by 25%, reducing API latency by 18%, and eliminating recurring authentication issues via OAuth2/JWT.',
+                    'Redesigned and normalized SQL and NoSQL database schemas, improving query performance by 50% and ensuring data consistency across distributed services.',
+                    'Developed Databricks-based ETL pipelines to unify cross-channel marketing data, improving dashboard freshness by 40% and enabling near real-time analytics.',
+                    'Automated build and release workflows for services deployed on Azure Kubernetes Service (AKS), enabling zero-downtime deployments and reducing release cycles by 40%.',
+                    'Mentored junior developers through code reviews and performance tuning in an Agile-Scrum environment, improving team deployment velocity by 30% and overall code reliability.'
                 ],
-                tags: ['React', 'JavaScript', 'Java', 'REST APIs', 'SQL', 'NoSQL', 'HTML/CSS', 'Full-Stack']
+                tags: ['Spring Boot', 'GraphQL', 'OAuth2', 'JWT', 'SQL', 'NoSQL', 'Databricks', 'ETL', 'Azure', 'Kubernetes', 'Agile']
             },
             freelance: {
                 icon: '🎨',
                 title: 'Web Developer',
                 company: 'Freelance',
-                date: 'Jan 2019 - Dec 2021',
+                date: 'Jan 2019 - Dec 2021 | Bengaluru, India',
                 points: [
-                    'Designed and delivered user-friendly, optimized websites using agile methodologies, which resulted in steady growth of customer sales by 50%.',
-                    'Working with clients to understand their requirements and providing technical solutions to meet their needs.',
-                    'Creating wireframes, prototypes and final designs for websites and web applications.',
-                    'Ensuring that websites are optimized for search engines (SEO) and meet accessibility standards.',
-                    'Maintained detailed project documentation, including code and version control and test cases, aligning with agile and testing protocols.',
-                    'Delivered projects on time while ensuring high quality and client satisfaction.'
+                    'Engineered and operated backend services and APIs for analytics and e-commerce platforms, handling 100K+ daily requests and contributing to a 50% increase in sales through higher click-through and conversion rates.',
+                    'Containerized and deployed services on Microsoft Azure using Docker and Kubernetes, enabling horizontal scaling and ensuring >99.9% availability across client workloads.'
                 ],
-                tags: ['Web Development', 'UI/UX Design', 'SEO', 'Agile', 'Client Management', 'Wireframing', 'Prototyping']
+                tags: ['Backend Development', 'APIs', 'Docker', 'Kubernetes', 'Azure', 'E-commerce', 'Analytics', 'DevOps']
             }
         };
 
