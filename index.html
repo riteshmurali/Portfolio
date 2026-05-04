@@ -2061,7 +2061,7 @@ function applyJoystick(delta) {
   // Steer left/right
   if (Math.abs(carState.speed) > 0.3) {
     const dir = carState.speed > 0 ? 1 : -1;
-    carState.angle += joyDx * steer * delta * dir;
+    carState.angle -= joyDx * steer * delta * dir;
   }
 }
 
