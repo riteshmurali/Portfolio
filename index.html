@@ -1354,6 +1354,9 @@ function animate() {
       if (rgt) carState.angle -= steerAmt;
     }
 
+    // Touch joystick
+    applyJoystick(delta);
+
     // Move — carGroup faces +Z, angle=0 means pointing +Z
     // sin(angle) = X component, cos(angle) = Z component
     carState.x += Math.sin(carState.angle) * carState.speed * delta;
@@ -2009,6 +2012,68 @@ function checkGarage() {
   const inside = Math.abs(dx) < 6.5 && Math.abs(dz) < 6.5;
   if (inside && !garageOpen) return true;
   return false;
+}
+
+// ── TOUCH JOYSTICK ──
+const joystickBase  = document.getElementById('joystick-base');
+const joystickKnob  = document.getElementById('joystick-knob');
+const JOY_RADIUS    = 33; // max knob travel px
+let joyActive = false;
+let joyOriginX = 0, joyOriginY = 0;
+let joyDx = 0, joyDy = 0; // -1..1
+
+joystickBase.addEventListener('touchstart', e => {
+  e.preventDefault();
+  joyActive = true;
+  const rect = joystickBase.getBoundingClientRect();
+  joyOriginX = rect.left + rect.width  / 2;
+  joyOriginY = rect.top  + rect.height / 2;
+}, { passive: false });
+
+joystickBase.addEventListener('touchmove', e => {
+  e.preventDefault();
+  if (!joyActive) return;
+  const touch = e.touches[0];
+  let dx = touch.clientX - joyOriginX;
+  let dy = touch.clientY - joyOriginY;
+  const dist = Math.sqrt(dx*dx + dy*dy);
+  if (dist > JOY_RADIUS) { dx = dx/dist*JOY_RADIUS; dy = dy/dist*JOY_RADIUS; }
+  joyDx = dx / JOY_RADIUS;
+  joyDy = dy / JOY_RADIUS;
+  // Position knob visually within the base circle
+  joystickKnob.style.left = (50 + (dx / JOY_RADIUS) * 35) + '%';
+  joystickKnob.style.top  = (50 + (dy / JOY_RADIUS) * 35) + '%';
+}, { passive: false });
+
+['touchend','touchcancel'].forEach(ev => joystickBase.addEventListener(ev, () => {
+  joyActive = false; joyDx = 0; joyDy = 0;
+  joystickKnob.style.left = '50%';
+  joystickKnob.style.top  = '50%';
+}));
+
+// applyJoystick receives real delta from animate loop
+function applyJoystick(delta) {
+  if (!joyActive) return;
+  const accel = 70, steer = 3.0, maxSpeed = 45;
+  // Up = forward (joyDy negative = push up)
+  if (joyDy < -0.12) carState.speed = Math.min(carState.speed + accel * delta * (-joyDy), maxSpeed);
+  else if (joyDy > 0.12) carState.speed = Math.max(carState.speed - accel * delta * joyDy * 0.8, -maxSpeed * 0.4);
+  // Steer left/right
+  if (Math.abs(carState.speed) > 0.3) {
+    const dir = carState.speed > 0 ? 1 : -1;
+    carState.angle += joyDx * steer * delta * dir;
+  }
+}
+
+function mobileE() {
+  // Same logic as E key
+  const bdx = carState.x - RESET_BOX_X;
+  const bdz = carState.z - RESET_BOX_Z;
+  if (Math.abs(bdx) < 2 && Math.abs(bdz) < 2.5) { resetPins(); return; }
+  if (checkGarage()) { openGarage(); return; }
+  if (garageOpen) { closeGarage(); return; }
+  if (nearZone && !panelOpen) { openPanel(nearZone); return; }
+  if (panelOpen) { closePanel(); return; }
 }
 
 animate();
